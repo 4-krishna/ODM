@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - ODMS</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">ODMS</div>
+    <div class="search-container">
+        <input type="text" placeholder="Search..." class="search-box">
+    </div>
+    <button class="new-sheet-btn">Create a New Sheet</button>
+    <div class="user-profile">
+        <img src="static/profile.jpg" alt="User Profile" class="profile-pic">
+        <div class="user-info">
+            <span class="user-name">John Smith</span>
+            <span class="user-email">johnsmith@gmail.com</span>
+        </div>
+    </div>
+</header>
+
+<main class="main-content">
+    <section class="past-sheets">
+        <h2>Sheets Filled in the Past</h2>
+        <div class="sheet-list">
+            <p>No records found</p>
+        </div>
+    </section>
+
+    <section class="active-sheets">
+        <h2>Active Sheets</h2>
+        <div class="sheet-list">
+            <p>No active sheets available</p>
+        </div>
+    </section>
+</main>
+
+</body>
+</html>
