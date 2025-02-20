@@ -3,41 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - ODMS</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>ODMS Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dashboard.css') }}">
 </head>
 <body>
-
-<header class="header">
-    <div class="logo">ODMS</div>
-    <div class="search-container">
-        <input type="text" placeholder="Search..." class="search-box">
+<header>
+    <div class="header-left">
+        <img src="path/to/logo.png" alt="Logo" class="logo">
     </div>
-    <button class="new-sheet-btn">Create a New Sheet</button>
-    <div class="user-profile">
-        <img src="static/profile.jpg" alt="User Profile" class="profile-pic">
-        <div class="user-info">
-            <span class="user-name">John Smith</span>
-            <span class="user-email">johnsmith@gmail.com</span>
-        </div>
+    <div class="header-right">
+        <span class="user-name">John Doe</span>
+        <span class="user-email">john.doe@example.com</span>
     </div>
 </header>
-
-<main class="main-content">
-    <section class="past-sheets">
-        <h2>Sheets Filled in the Past</h2>
-        <div class="sheet-list">
-            <p>No records found</p>
+<nav class="navbar">
+    <ul class="navbar__menu">
+        <li class="navbar__item">
+        </li>
+        <li class="navbar__item">
+            <a href="#" class="navbar__link"><i data-feather="file-plus"></i><span>Create New Sheet</span></a>
+        </li>
+        <li class="navbar__item">
+            <a href="#" class="navbar__link"><i data-feather="archive"></i><span>Past Records</span></a>
+        </li>
+    </ul>
+    <form class="searchform cf">
+        <input type="text" placeholder="Search...">
+        <button type="submit">Search</button>
+    </form>
+</nav>
+<main>
+    <h2>Active Sheets</h2>
+    <div class="main-panel">
+        <div class="content">
+            <!-- Active sheets content will be dynamically added here -->
         </div>
-    </section>
-
-    <section class="active-sheets">
-        <h2>Active Sheets</h2>
-        <div class="sheet-list">
-            <p>No active sheets available</p>
-        </div>
-    </section>
+    </div>
 </main>
-
+<footer>
+    &copy; 2024 ODMS
+</footer>
 </body>
 </html>
