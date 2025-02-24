@@ -1,0 +1,109 @@
+/* Base Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+body {
+    background-color: #1F2633;
+    color: #EFF6FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background: #1F2633;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.82);
+    text-align: center;
+    width: 400px;
+}
+
+h2 {
+    color: white;
+    margin-bottom: 1rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.checkbox-container {
+    text-align: left;
+}
+
+.checkbox-label {
+    display: block;
+    margin: 5px 0;
+}
+
+button {
+    background-color: #3B82F6;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    background-color: #2563EB;
+}
+
+/* Entries Display */
+.entries-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.entry-card {
+    background: #EFF6FF;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-align: left;
+}
+
+.entry-card p {
+    margin: 5px 0;
+    color: #222;
+}
+
+.delete-btn {
+    background-color: #B91C1C;
+}
+
+.delete-btn:hover {
+    background-color: #991B1B;
+}
+
+.download-btn {
+    display: inline-block;
+    margin-top: 15px;
+    background: #3B82F6;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.download-btn:hover {
+    background: #2563EB;
+}

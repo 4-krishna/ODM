@@ -5,43 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ODMS Dashboard</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dashboard.css') }}">
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
 <header>
     <div class="header-left">
-        <img src="path/to/logo.png" alt="Logo" class="logo">
+        <img src="{{ url_for('static', filename='assets/ODMS.png') }}" alt="ODMS Logo" class="logo">
     </div>
     <div class="header-right">
-        <span class="user-name">John Doe</span>
-        <span class="user-email">john.doe@example.com</span>
+        <span class="user-name"><strong>{{ user_name }}</strong></span>
+        <span class="user-email">{{ user_email }}</span>
     </div>
 </header>
+
 <nav class="navbar">
     <ul class="navbar__menu">
         <li class="navbar__item">
-        </li>
-        <li class="navbar__item">
-            <a href="#" class="navbar__link"><i data-feather="file-plus"></i><span>Create New Sheet</span></a>
+            <a href="{{ url_for('create_sheet') }}" class="navbar__link"><i data-feather="file-plus"></i><span>Create New Sheet</span></a>
         </li>
         <li class="navbar__item">
             <a href="#" class="navbar__link"><i data-feather="archive"></i><span>Past Records</span></a>
         </li>
     </ul>
     <form class="searchform cf">
-        <input type="text" placeholder="Search...">
+        <input type="text" placeholder="Search..." aria-label="Search">
         <button type="submit">Search</button>
     </form>
 </nav>
+
 <main>
     <h2>Active Sheets</h2>
-    <div class="main-panel">
-        <div class="content">
-            <!-- Active sheets content will be dynamically added here -->
+    <div class="sheet-container">
+        {% if sheets %}
+        {% for s in sheets %}
+        <div class="sheet-card">
+            <h3>{{ s[1] }}</h3>
+            <p><strong>Created by:</strong> {{ s[2] }}</p>
+            <a href="{{ url_for('sheet_detail', sheet_id=s[0]) }}" class="view-sheet">View Sheet</a>
         </div>
+        {% endfor %}
+        {% else %}
+        <p>No active sheets available.</p>
+        {% endif %}
     </div>
 </main>
+
 <footer>
-    &copy; 2024 ODMS
+    &copy; 2025 ODMS
 </footer>
+
+<script>
+    feather.replace();
+</script>
 </body>
 </html>

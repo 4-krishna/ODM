@@ -13,13 +13,13 @@ header {
     justify-content: space-between;
     align-items: center;
     background-color: #3B82F6;
-    padding: 15px;
+    padding: 10px;
     font-size: 1.5rem;
     font-weight: bold;
 }
 
 .header-left .logo {
-    width: 50px;
+    width: 80px;
     height: auto;
 }
 
@@ -129,47 +129,56 @@ main {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-/* Buttons */
-button.primary-button {
+/* Sheet Cards */
+.sheet-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.sheet-card {
+    background: #0E121A;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.sheet-card:hover {
+    transform: scale(1.05);
+}
+
+.sheet-card h3 {
+    color: #3B82F6;
+    font-size: 1.2rem;
+}
+
+.sheet-card p {
+    color: #B8BFCC;
+    font-size: 0.9rem;
+}
+
+.view-sheet {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 12px;
     background-color: #3B82F6;
-    color: #EFF6FF;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
-    cursor: pointer;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
     transition: background-color 0.3s;
 }
 
-button.primary-button:hover {
+.view-sheet:hover {
     background-color: #2563EB;
-}
-
-/* Tables */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-table th, table td {
-    padding: 10px;
-    border: 1px solid #374151;
-    text-align: left;
-}
-
-table th {
-    background-color: #3B82F6;
-    color: #EFF6FF;
-}
-
-table tr:nth-child(even) {
-    background-color: #1F2937;
 }
 
 /* Footer */
 footer {
     text-align: center;
-    padding: 15px;
+    padding: 10px;
     background-color: #3B82F6;
     position: fixed;
     bottom: 0;
