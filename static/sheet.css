@@ -152,19 +152,28 @@ input[type="text"] {
 .action-buttons {
     margin-top: 20px;
     display: flex;
-    gap: 10px;
+    flex-direction: row;
+    gap: 15px;
     align-items: center;
+    justify-content: center;
 }
 
 .download-btn, .back-btn, .delete-sheet-btn {
     display: inline-block;
-    padding: 10px 10px;
-    border-radius: 5px;
+    width: 400px;
+    height: 48px;
+    line-height: 48px;
+    padding: 0;
+    border-radius: 6px;
     text-decoration: none;
     color: white;
     font-size: 1rem;
+    font-weight: 500;
     border: none;
     cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .download-btn {
@@ -177,11 +186,51 @@ input[type="text"] {
 
 .delete-sheet-btn {
     background-color: #DC2626;
-    width: 100%;
+}
+
+.download-btn:hover {
+    background-color: #2563EB;
+}
+
+.back-btn:hover {
+    background-color: #374151;
+}
+
+.delete-sheet-btn:hover {
+    background-color: #B91C1C;
 }
 
 .delete-sheet-form {
     flex: 1;
+}
+
+.submit-btn {
+    background-color: #3B82F6;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.submit-btn:hover {
+    background-color: #2563EB;
+}
+
+.delete-btn {
+    background-color: #DC2626;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.delete-btn:hover {
+    background-color: #B91C1C;
 }
 
 .alert {

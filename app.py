@@ -245,7 +245,6 @@ def logout():
     flash('You have been logged out successfully!', 'success')
     return redirect(url_for('login'))
 
-# Add this route after the download_sheet route
 
 @app.route('/sheet/<int:sheet_id>/delete', methods=['POST'])
 def delete_sheet(sheet_id):
