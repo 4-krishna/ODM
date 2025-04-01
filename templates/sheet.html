@@ -3,46 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ sheet_name }}</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='sheet.css') }}">
-    <script src="{{ url_for('static', filename='sheet.js') }}" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='sheet.css') }}">
 </head>
 <body>
-<div class="container">
-    <h2>Sheet: {{ sheet_name }}</h2>
-    <form method="POST">
-        <label>Name:</label>
-        <input type="text" name="name" required>
-        <label>Roll Number:</label>
-        <input type="text" name="roll_number" required>
-        <p>Select Time Slots:</p>
-        <div class="checkbox-container">
-            {% for slot in ["8:00-8:50","9:00-9:50","10:00-10:50","11:00-11:50","12:00-12:50","1:40-2:30","2:40-3:30","3:40-4:30","4:40-5:30"] %}
-            <label class="checkbox-label">
-                <input type="checkbox" name="time_slots" value="{{ slot }}"> {{ slot }}
-            </label>
-            {% endfor %}
-        </div>
-        <button type="submit">Submit Entry</button>
-    </form>
+    <div class="container">
+        <header>
+            <h2>Sheet: {{ sheet_name }}</h2>
+            <p class="creator-info">Created by: {{ creator }}</p>
+        </header>
 
-
-    <div class="entries-container">
-        {% for e in entries %}
-        <div class="entry-card">
-            <p><strong>{{ e[1] }}</strong> ({{ e[2] }})</p>
-            <p>Time Slots: {{ e[3] }}</p>
-            {% if creator == current_user %}
-            <form method="POST" action="{{ url_for('delete_entry', sheet_id=sheet_id, entry_id=e[0]) }}">
-                <button type="submit" class="delete-btn">Delete</button>
-            </form>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
             {% endif %}
-        </div>
-        {% endfor %}
-    </div>
+        {% endwith %}
 
-    {% if creator == current_user %}
-    <p><a href="{{ url_for('download_sheet', sheet_id=sheet_id) }}" class="download-btn">Download as CSV</a></p>
-    {% endif %}
-</div>
+        <!-- Entry Form -->
+        <form method="POST" class="entry-form">
+            <div class="form-group">
+                <label>Name:</label>
+                <input type="text" name="name" required>
+            </div>
+            <div class="form-group">
+                <label>Roll Number:</label>
+                <input type="text" name="roll_number" required>
+            </div>
+            <div class="form-group">
+                <p>Select Time Slots:</p>
+                <div class="time-slots">
+                    {% for slot in ["8:00-8:50","9:00-9:50","10:00-10:50","11:00-11:50","12:00-12:50","1:40-2:30","2:40-3:30","3:40-4:30","4:40-5:30"] %}
+                    <label class="slot-label">
+                        <input type="checkbox" name="time_slots" value="{{ slot }}">
+                        <span>{{ slot }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+            <button type="submit" class="submit-btn">Submit Entry</button>
+        </form>
+
+        <!-- Entries Display -->
+        <div class="entries-section">
+            <h3>Submitted Entries</h3>
+            <div class="entries-grid">
+                {% for entry_id, name, roll, slots, user in entries %}
+                <div class="entry-card">
+                    <div class="entry-header">
+                        <h4>{{ name }}</h4>
+                        <span class="roll-number">Roll: {{ roll }}</span>
+                    </div>
+                    <div class="time-slots-display">
+                        {% for slot in slots.split(',') %}
+                        <span class="slot-tag">{{ slot }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="entry-footer">
+                        <span class="submitted-by">By: {{ user }}</span>
+                        {% if creator == current_user %}
+                        <form method="POST" action="{{ url_for('delete_entry', sheet_id=sheet_id, entry_id=entry_id) }}" class="delete-form">
+                            <button type="submit" class="delete-btn">Delete</button>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Download Button (Only for creator) -->
+        {% if creator == current_user %}
+        <div class="action-buttons">
+            <a href="{{ url_for('download_sheet', sheet_id=sheet_id) }}" class="download-btn">Download as CSV</a>
+            <a href="{{ url_for('dashboard') }}" class="back-btn">Back to Dashboard</a>
+        </div>
+        {% endif %}
+    </div>
 </body>
 </html>
