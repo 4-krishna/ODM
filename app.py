@@ -39,16 +39,26 @@ def login_user(username, password):
         if 'conn' in locals():
             conn.close()
 
-@app.route('/dashboard')
+@app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     if 'username' not in session:
         flash('Please log in first!', 'warning')
         return redirect(url_for('login'))
     
+    search_query = request.args.get('search', '')
+    
     try:
         conn = get_db_connection()
         c = conn.cursor()
-        c.execute('SELECT id, sheet_name, creator FROM sheets')
+        
+        if search_query:
+            # Search in sheet names
+            c.execute('SELECT id, sheet_name, creator FROM sheets WHERE sheet_name LIKE ?', 
+                     (f'%{search_query}%',))
+        else:
+            # Get all sheets
+            c.execute('SELECT id, sheet_name, creator FROM sheets')
+            
         sheets = c.fetchall()
         
         # Convert to list of tuples for easier template handling
@@ -56,10 +66,16 @@ def dashboard():
         for sheet in sheets:
             sheet_list.append((sheet['id'], sheet['sheet_name'], sheet['creator']))
         
-        return render_template('dashboard.html', user_name=session['username'], sheets=sheet_list)
+        return render_template('dashboard.html', 
+                              user_name=session['username'], 
+                              sheets=sheet_list,
+                              search_query=search_query)
     except Exception as e:
         flash(f'Error loading dashboard: {str(e)}', 'danger')
-        return render_template('dashboard.html', user_name=session['username'], sheets=[])
+        return render_template('dashboard.html', 
+                              user_name=session['username'], 
+                              sheets=[],
+                              search_query=search_query)
     finally:
         if 'conn' in locals():
             conn.close()
@@ -228,6 +244,38 @@ def logout():
     session.pop('username', None)
     flash('You have been logged out successfully!', 'success')
     return redirect(url_for('login'))
+
+# Add this route after the download_sheet route
+
+@app.route('/sheet/<int:sheet_id>/delete', methods=['POST'])
+def delete_sheet(sheet_id):
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    
+    user = session['username']
+    conn = get_db_connection()
+    c = conn.cursor()
+    
+    # Check if user is the creator of the sheet
+    c.execute('SELECT creator FROM sheets WHERE id=?', (sheet_id,))
+    sheet = c.fetchone()
+    
+    if not sheet or sheet['creator'] != user:
+        flash('You do not have permission to delete this sheet!', 'danger')
+        conn.close()
+        return redirect(url_for('dashboard'))
+    
+    # Delete all entries in the sheet first
+    c.execute('DELETE FROM entries WHERE sheet_id=?', (sheet_id,))
+    
+    # Then delete the sheet itself
+    c.execute('DELETE FROM sheets WHERE id=?', (sheet_id,))
+    
+    conn.commit()
+    conn.close()
+    
+    flash('Sheet deleted successfully!', 'success')
+    return redirect(url_for('dashboard'))
 
 if __name__ == '__main__':
     init_db()

@@ -29,10 +29,13 @@
                 </a>
             </li>
         </ul>
-        <form class="searchform" method="GET">
-            <input type="text" name="search" placeholder="Search sheets...">
-            <button type="submit">Search</button>
-        </form>
+        <!-- Add this search form after the header section -->
+        <div class="search-container">
+            <form action="{{ url_for('dashboard') }}" method="GET" class="search-form">
+                <input type="text" name="search" placeholder="Search sheets..." value="{{ search_query }}">
+                <button type="submit" class="search-btn">Search</button>
+            </form>
+        </div>
     </nav>
 
     <main>

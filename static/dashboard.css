@@ -196,3 +196,36 @@ footer {
         width: 80%;
     }
 }
+
+.search-container {
+    margin-bottom: 20px;
+}
+
+.search-form {
+    display: flex;
+    gap: 10px;
+}
+
+.search-form input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #374151;
+    background-color: #0E121A;
+    color: #EFF6FF;
+    font-family: 'Poppins', sans-serif;
+}
+
+.search-btn {
+    background-color: #3B82F6;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+}
+
+.search-btn:hover {
+    background-color: #2563EB;
+}

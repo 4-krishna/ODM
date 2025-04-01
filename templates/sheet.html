@@ -77,6 +77,9 @@
         {% if creator == current_user %}
         <div class="action-buttons">
             <a href="{{ url_for('download_sheet', sheet_id=sheet_id) }}" class="download-btn">Download as CSV</a>
+            <form method="POST" action="{{ url_for('delete_sheet', sheet_id=sheet_id) }}" class="delete-sheet-form" onsubmit="return confirm('Are you sure you want to delete this sheet? This action cannot be undone.');">
+                <button type="submit" class="delete-sheet-btn">Delete Sheet</button>
+            </form>
             <a href="{{ url_for('dashboard') }}" class="back-btn">Back to Dashboard</a>
         </div>
         {% endif %}
