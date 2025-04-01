@@ -1,4 +1,4 @@
-# Online Duty Management System
+# On Duty Management System
 
 A web-based application for creating and managing duty sheets, allowing users to sign up for time slots and administrators to manage entries.
 
